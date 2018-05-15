@@ -1,5 +1,4 @@
 #include "ofApp.h"
-
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
@@ -7,39 +6,38 @@ void ofApp::setup(){
     // for (index min; index max; increment)
     for(int i = 0; i<NUM_SQUARES; i++){
         location[i].set(ofRandomWidth(), ofRandomHeight());
+        size[i]=50;
     }
     mouseHasMoved=false;
 }
-
 //--------------------------------------------------------------
 void ofApp::update(){
     if(mouseHasMoved){
         for(int i = 0; i<NUM_SQUARES; i++){
-        //1 way to direct one object to a target is:
-        //direction=(target-location)/speed (larger speed = slower convergence)
-            //ofVec2f direction = ofVec2f(0.2,0);
-            ofVec2f direction = (mouse-location[i])/50;
-            location[i]+=direction;
+        //direct object to target: direction=(target-location)*speed (speed<1)
+            ofVec2f distance = mouse-location[i];
+            size[i]=distance.length()*1.5;
+            ofVec2f direction = distance*0.05;
+            if(distance.length()>300){
+                location[i]+=direction;
+            }else{
+                location[i]-=direction;
+            }
         }
     }
 }
-
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(0,255,0,127);
+    ofSetColor(0,255,0,1);
     for(int i = 0; i<NUM_SQUARES ; i++){
-        ofDrawRectangle(location[i], 50, 50);
+        ofDrawRectangle(location[i], size[i], size[i]);
     }
 }
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
 }
-
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
 }
 
 //--------------------------------------------------------------

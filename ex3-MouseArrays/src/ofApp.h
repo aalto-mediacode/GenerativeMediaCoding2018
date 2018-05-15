@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#define NUM_SQUARES 100
+#define NUM_SQUARES 500
 
 class ofApp : public ofBaseApp{
 
@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     ofVec2f location[NUM_SQUARES];
+    float size[NUM_SQUARES];
     ofVec2f mouse;
     bool mouseHasMoved;
 		
